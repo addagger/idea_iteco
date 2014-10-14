@@ -1,0 +1,16 @@
+<%- if devise_mapping.omniauthable? %>
+    <div class="col-md-6 col-sm-6">
+			  <%- resource_class.omniauth_providers.each do |provider| %>
+			     <%= link_to omniauth_authorize_path(resource_name, provider), :title => "Логин через #{provider.to_s.titleize}" do %>
+               <div class="sign-up-btn <%= provider %>">
+                   <div class="icon">
+                       <i class="fa fa-<%= provider %>"></i>
+                   </div>
+                   <div class="text">
+                       <%= provider.to_s.titleize %>
+                   </div>
+               </div>
+					 <% end %>
+			  <% end -%>
+    </div>
+<% end -%>

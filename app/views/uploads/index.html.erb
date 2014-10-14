@@ -1,0 +1,195 @@
+<% content_for :footer, false %>
+<%= page_title "Загрузки" %>
+
+<div class="space"></div>
+<% description_field = nil %>
+<div class="container">
+	<%= form_for [@resource, Upload.new], :html => { :multipart => true, :id => "fileupload"  } do |f| %>
+	   <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+	   <div class="row fileupload-buttonbar">
+	     <div class="col-lg-9">
+	       <!-- The fileinput-button span is used to style the file input field as button -->
+	       <span class="btn btn-success btn-sm btn-file">
+	         <span class="glyphicon glyphicon-plus"></span> <%= t('upload.index.add_files') %>
+	         <%= f.file_field :multiple_src, :multiple => true %>
+	       </span>
+	       <button type="submit" class="btn btn-primary btn-sm start">
+	         <span class="glyphicon glyphicon-upload"></span> <%= t('upload.index.start_upload') %>
+	       </button>
+	       <button type="reset" class="btn btn-warning btn-sm cancel">
+	         <span class="glyphicon glyphicon-ban-circle"></span> <%= t('upload.index.cancel_upload') %>
+	       </button>
+	       <button type="button" class="btn btn-danger btn-sm delete">
+	         <span class="glyphicon glyphicon-trash"></span> <%= t('upload.index.delete') %>
+	       </button>
+	       <input type="checkbox" class="toggle">
+	       <!-- The loading indicator is shown during file processing -->
+	       <span class="fileupload-loading"></span>
+	     </div>
+	     <!-- The global progress information -->
+	     <div class="clearfix"></div>
+	     <div class="fileupload-progress fade" style="margin: 0px 15px;">
+	       <!-- The global progress bar -->
+	       <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+	         <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+	       </div>
+	       <!-- The extended global progress information -->
+	       <div class="progress-extended"></div>
+	     </div>
+	   </div>
+
+	   <!-- The table listing the files available for upload/download -->
+	   <table role="presentation" class="table table-striped"><tbody class="page files"></tbody></table>
+	   <% description_field = capture do %>
+	     <%= f.text_field :description, :class => "form-control", :placeholder => Upload.human_attribute_name(:description) %>
+	   <% end %>
+ 
+	<% end %>
+
+	<%= paginate @uploads %>
+</div>
+
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+        <td style="width:100px;">
+            <span class="preview"></span>
+        </td>
+        <td>
+            <p class="name break-word small">{%=file.name%}</p>
+            {% if (file.error) { %}
+                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+            {% } else { %}
+                <%= description_field %>            
+            {% } %}
+        </td>
+        <td style="max-width:70px; text-align:center;">
+            <p class="size small nowrap">{%=o.formatFileSize(file.size)%}</p>
+            {% if (!o.files.error) { %}
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+            {% } %}
+        </td>
+        <td>
+            {% if (!o.files.error && !i && !o.options.autoUpload) { %}
+                <button class="btn btn-primary btn-xs start">
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span><%= t('upload.create.start') %></span>
+                </button>
+            {% } %}
+            {% if (!i) { %}
+                <button class="btn btn-warning btn-xs cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span><%= t('upload.create.cancel') %></span>
+                </button>
+            {% } %}
+        </td>
+    </tr>
+{% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        <td style="width:100px;">
+            <span class="preview">
+                {% if (file.thumbnailUrl) { %}
+                    <a href="{%=file.objectUrl%}" title="{%=file.name%}"><img src="{%=file.thumbnailUrl%}" class="img-thumbnail"></a>
+                    <!-- <a href="{%=file.objectUrl%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}" class="img-thumbnail" width="80"></a> -->
+                {% } else { %}
+                    <center><a href="{%=file.objectUrl%}" title="{%=file.name%}" style="font-size:large;"><span class="glyphicon glyphicon-floppy-saved"></span></a></center>
+                {% } %}
+            </span>
+        </td>
+        <td>
+            <p class="name break-word small">
+                {% if (file.url) { %}
+                    <a href="{%=file.objectUrl%}" title="{%=file.name%}">{%=file.name%}</a>
+                    <!-- <a href="{%=file.objectUrl%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a> -->
+                {% } else { %}
+                    <span>{%=file.name%}</span>
+                {% } %}
+                {% if (file.description) { %}
+                    <p>{%=file.description%}</p>
+                {% } %}
+                <div class="file-origin toggle">{%=file.origin%}</div>
+            </p>
+            {% if (file.error) { %}
+                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+            {% } %}
+        </td>
+        <td style="max-width:70px; text-align:center;">
+            <span class="size small nowrap">
+              {%=o.formatFileSize(file.size)%}
+            </span>
+            {% if (file.croppedUrl) { %}
+                <a href="{%=file.croppedUrl%}" class="small" style="display:block;"><%= t('picture.meta.cropped') %></a>
+            {% } %}
+        </td>
+        <td class="nowrap">
+            {% if (file.objectUrl) { %}
+                <button class="btn btn-danger btn-xs delete" data-type="{%=file.deleteType%}" data-url="{%=file.objectUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                    <i class="glyphicon glyphicon-trash"></i>
+                    <span><%= t('upload.create.delete') %></span>
+                </button>
+                <input type="checkbox" name="delete" value="1" class="toggle">
+            {% } else { %}
+                <button class="btn btn-warning btn-xs cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span><%= t('upload.create.cancel') %></span>
+                </button>
+            {% } %}
+        </td>
+    </tr>
+{% } %}
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+      // Initialize the jQuery File Upload widget:
+      $('#fileupload').fileupload();
+
+      // Enable iframe cross-domain access via redirect option:
+      $('#fileupload').fileupload(
+          'option',
+          'redirect',
+          window.location.href.replace(/\/[^\/]*$/, '/cors/result.html?%s')
+      );
+      // Demo settings:
+      $('#fileupload').fileupload('option', {
+          prependFiles: true,
+          url: $('#fileupload').fileupload('option', 'url'),
+          // Enable image resizing, except for Android and Opera,
+          // which actually support image resizing, but fail to
+          // send Blob objects via XHR requests:
+          disableImageResize: /Android(?!.*Chrome)|Opera/
+              .test(window.navigator.userAgent),
+          maxFileSize: 5242880,
+          acceptFileTypes: /(\.|\/)(tiff|gif|jpe?g|png|docx?|xlsx?|pptx?|pdf|rtf|txt|mp3|wav)$/i
+      });
+  
+      // Load existing files:
+      $('#fileupload').addClass('fileupload-processing');
+      $.ajax({
+          // Uncomment the following to send cross-domain cookies:
+          //xhrFields: {withCredentials: true},
+          //url: $('#fileupload').fileupload('option', 'url'),
+          url: window.location.href,
+          dataType: 'json',
+          //data: { page: getURLParameter('page') },
+          context: $('#fileupload')[0]
+      }).always(function () {
+          $(this).removeClass('fileupload-processing');
+      }).done(function (result) {
+          $(this).fileupload('option', 'done')
+              .call(this, $.Event('done'), {result: result});
+      });
+
+  });
+</script>
+
+<% if @resource %>
+  <% content_for :switcher do %>
+     <%= link_to "Назад", @resource %> 
+  <% end %>
+<% end %>

@@ -1,0 +1,33 @@
+<% mix_by ||= :groups %>
+<% section_attributes = tag_attributes(:id => "projects", :class => "section-lg") %>
+<% section_attributes.merge(section) if defined?(section) %>
+<!-- Our works/ projects section -->
+<section <%= section_attributes.to_s %>>
+    <div class="container">
+        <h2 class="big-title text-center"><%= title %></h2>
+        <p class="big-subtitle text-center"><%= subtitle %></p>
+        <div class="space-sm"></div>
+				<% mix_tags = projects.map(&mix_by).flatten.uniq %>
+				<% if mix_tags.many? %>
+	        <ul class="filter-tabs">
+	            <li class="filter active" data-filter="mix"><span>Все</span></li>
+						  <% mix_tags.each do |mix| %>
+			            <li class="filter" data-filter="<%= mix.permalink %>"><span><%= mix %></span></li>
+							<% end %>
+	        </ul>
+
+	        <ul class="row filter-grid-v2" id="Grid">
+						  <% projects.each do |project| %>
+	                <%= render "projects/grid_mix_item", :project => project, :mix_by => mix_by %>
+							<% end %>
+	        </ul>
+				<% else %>
+	        <div class="row portfolio-grid">
+						  <% projects.each do |project| %>
+							    <%= render "projects/grid_div_item", :project => project %>
+							<% end %>
+	        </div>
+				<% end %>
+
+    </div>
+</section>

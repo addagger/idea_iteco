@@ -1,0 +1,10 @@
+<%= page_title "Новая группа" %>
+<div class="container">
+	<h1>Заполните форму</h1>
+	
+  <%= render 'form' %>
+</div>
+
+<% content_for :switcher do %>
+  <%= link_to 'Назад', groups_path %>
+<% end %>

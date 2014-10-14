@@ -1,0 +1,17 @@
+<section class="container section margin-b30">
+    <div class="row">	
+			  <% groups.each do |group| %>
+		        <div class="col-lg-4 col-sm-6">
+		            <div class="float-box">
+										  <%= link_to group do %>
+					                <i class="fa icon-c fa-<%= group.icon.present? ? group.icon : "globe" %>"></i>
+											<% end %>
+			                <div class="float-text">
+			                    <h3><%= group %></h3>
+			                    <p><%= group.description %></p>
+			                </div>
+		            </div>
+		        </div>
+				<% end %>
+    </div>
+</section>

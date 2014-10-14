@@ -1,0 +1,11 @@
+<%= page_title "Идея", :subtitle => @idea %>
+<section class="bg-8 bg-center bg-filter">
+<div class="container">
+  <%= render 'form' %>
+</div>
+</section>
+
+<% content_for :switcher do %>
+	<%= link_to 'Show', @idea %>
+	<%= link_to 'Back', ideas_path %>
+<% end %>

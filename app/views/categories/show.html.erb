@@ -1,0 +1,28 @@
+<%= page_title_extended @category, :subtitle => @category.description, :scroll_to => "projects", :bg => 18 %>
+<!--===    MAIN WRAP     ===-->
+<% if @category.html_doc.content.present? %>
+    <section class="section">
+        <div class="container-sm">
+            <h2 class="big-title">Аннотация</h2> 
+            <div class="space-sm"></div>
+						<%= raw @category.html_doc.content %>
+						<div class="space"></div>
+            <div class="inline-btn">
+							  <%= link_to projects_path, :class => "btn btn-primary-trn btn-xlg" do %>
+                    <i class="fa fa-arrow-left"></i>Другие категории
+								<% end %>
+            </div>
+        </div>
+    </section>
+<% end %>
+<% if @category.projects.any? %>
+	<%= render "projects/scope", :projects => @category.projects.accessible_by(current_ability), :title => "Проекты по тематике", :subtitle => "Средства разработки - это показатель креатива", :mix_by => :groups %>
+<% end %>
+<%= render "shared/share_section" %>
+<!--===/END    MAIN WRAP     ===-->
+
+<% content_for :switcher do %>
+	<%= link_to 'Редактировать', edit_category_path(@category) %>
+	<%= link_to 'Файлы', [@category, Upload.new] %>
+	<%= link_to 'Назад', categories_path %>
+<% end %>

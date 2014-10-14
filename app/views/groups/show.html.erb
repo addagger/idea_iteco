@@ -1,0 +1,28 @@
+<%= page_title_extended @group, :subtitle => @group.description, :scroll_to => "projects", :bg => 18 %>
+<!--===    MAIN WRAP     ===-->
+<% if @group.html_doc.content.present? %>
+    <section class="section">
+        <div class="container-sm">
+            <h2 class="big-title">Аннотация</h2> 
+            <div class="space-sm"></div>
+						<%= raw @group.html_doc.content %>
+						<div class="space"></div>
+            <div class="inline-btn">
+							  <%= link_to projects_path, :class => "btn btn-primary-trn btn-xlg" do %>
+                    <i class="fa fa-arrow-left"></i>Другие группы
+								<% end %>
+            </div>
+        </div>
+    </section>
+<% end %>
+<% if @group.projects.any? %>
+	<%= render "projects/scope", :projects => @group.projects.accessible_by(current_ability), :title => "Проекты по тематике", :subtitle => "Средства разработки - это показатель креатива", :mix_by => :categories %>
+<% end %>
+<%= render "shared/share_section" %>
+<!--===/END    MAIN WRAP     ===-->
+
+<% content_for :switcher do %>
+	<%= link_to 'Редактировать', edit_group_path(@group) %>
+	<%= link_to 'Файлы', [@group, Upload.new] %>
+	<%= link_to 'Назад', categories_path %>
+<% end %>

@@ -1,0 +1,20 @@
+<section class="container section text-center">
+    <h2 class="big-title">Присоединяйтесь</h2>
+    <p class="big-subtitle">
+			<% if @project %>
+				Напишите свое мнение и поделитесь идеей по поводу этого проекта
+			<% elsif @category||@group %>
+			  Напишите свое мнение и поделитесь идеей на тему '<%= @resource %>'
+			<% else %>
+			  Ждем Ваших инициатив!
+			<% end %>
+		</p>
+    <div class="space-md"></div>
+    <ul class="list-inline wow fadeInUp" data-wow-delay="0.3s">
+        <li>
+						<%= link_to new_polymorphic_path([@project||@category||@group, Idea.new]), :class => "btn btn-primary-trn btn-xlg scroll" do %>
+              <i class="fa fa-bolt"></i>Подать идею
+						<% end %>
+        </li>
+    </ul>
+</section>

@@ -1,0 +1,14 @@
+<% if object.errors.any? %>
+  <div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= t('actions.links.close') %></span></button>
+    <p class="lead">
+      <i class="fa fa-exclamation-triangle"></i>
+      <%= t('errors.messages.record_invalid', :errors => "") %>
+    </p>
+    <ul>
+    <% object.errors.full_messages.each do |msg| %>
+      <li><%= raw msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

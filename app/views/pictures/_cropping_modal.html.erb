@@ -1,0 +1,23 @@
+<div class="modal fade" id="croppingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= t('actions.links.close')%></span></button>
+        <h4 class="modal-title" id="myModalLabel"><%= t('picture.edit.title') %></h4>
+      </div>
+      <%= form_for([@resource, @picture], :html => {:role => "form"}) do |f| %>        
+        <div class="modal-body">
+          <div class="form-group">
+            <%= f.label :description, :class => 'control-label' %>
+            <%= f.text_area :description, :class => 'form-control', :rows => 2 %>
+          </div>
+          <%= jcropping(f, :src) %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+          <%= f.submit :class => "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

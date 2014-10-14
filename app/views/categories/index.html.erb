@@ -1,0 +1,8 @@
+<%= page_title "Категории проектов" %>
+<%= render "categories/scope", :categories => @categories %>
+
+<% if can?(:manage, Category)%>
+	<% content_for :switcher do %>
+     <%= link_to 'Новая категория', new_category_path %>
+	<% end %>
+<% end %>

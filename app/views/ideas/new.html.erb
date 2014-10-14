@@ -1,0 +1,23 @@
+<% if @resource %>
+	<%= page_title @resource, :subtitle => @resource.description, :bg => 14 %>
+<% else %>
+	<%= page_title "Ваша идея", :subtitle => "Заполните форму, мы обязательно рассмотрим", :bg => 19 %>
+<% end %>
+<section class="bg-center">
+<div class="container">
+	<div class="space"></div>
+	<blockquote class="text-center">
+			<p><%= random_quote.said %></p>
+	    <footer><%= random_quote.who %> <cite title="Цитата"></cite>
+	    </footer>
+	</blockquote>
+	<% if @resource %>
+		<h1>Ваша идея на тему</h1>
+	<% end %>
+  <%= render 'form' %>
+</div>
+</section>
+
+<% content_for :switcher do %>
+  <%= link_to 'Назад', root_path %>
+<% end %>

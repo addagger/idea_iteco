@@ -1,0 +1,5 @@
+<% if flash.any? %>
+  $(".flash").remove();
+  $("body").prepend('<%= escape_javascript(render("layouts/flash", :flash => flash)) %>');
+<% end %>
+<%= yield %>

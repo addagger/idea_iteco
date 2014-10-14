@@ -1,0 +1,13 @@
+<% bg ||= "19" %>
+<!--===    HEADER     ===-->
+<section class="bg-<%= bg %> bg-center bg-cover">
+    <div class="bg-filter">
+        <div class="container section-lg">
+            <h1 class="top-title"><%= title %></h1>
+						<% if defined?(subtitle) %>
+							<p class="big-subtitle text-center text-light w800"><%= subtitle %></p>
+						<% end %>
+        </div>
+    </div>
+</section>
+<!--===/END      HEADER     ===-->

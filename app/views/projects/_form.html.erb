@@ -1,0 +1,36 @@
+<%= form_for(@project, :html => {:class => "form-lg"}) do |f| %>
+  <%= render "shared/errors_explanation", :object => f.object %>
+
+  <div class="form-group">
+    <%= f.label :category_ids %><br>
+    <%= f.select :category_ids, categories_for_select, {}, :class => 'selectpicker', :multiple => true, :'data-width' => "100%" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :group_ids %><br>
+    <%= f.select :group_ids, groups_for_select, {}, :class => 'selectpicker', :multiple => true, :'data-width' => "100%" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, :class => "form-control", :placeholder => "Название" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, :class => "form-control", :rows => 5 %>
+  </div>
+	
+	<%= render 'shared/html_doc', :f => f %>  
+	
+	<%= render "shared/tag_it", :f => f %>
+	
+  <div class="form-group">
+    <%= f.label :permalink %>
+    <%= f.text_field :permalink, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :published %>
+    <%= f.check_box :published, :class => "bootstrap-switch" %> 
+  </div>
+  <div class="actions form-group">
+    <%= f.submit :class => "btn btn-primary" %>
+  </div>
+<% end %>

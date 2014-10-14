@@ -1,0 +1,37 @@
+<%= page_title @project, :subtitle => @project.description %>
+
+<% if @project.html_doc.content.present? %>
+    <section class="section">
+        <div class="container">
+            <div class="space-sm"></div>
+						<%= raw @project.html_doc.content %>
+        </div>
+    </section>
+<% end %>
+
+    <%= render "shared/share_section" %>
+		
+    <section class="bg-grey section">
+        <div class="container">
+            <div class="clearfix ">
+                <h3 class="pull-left">Другие проекты</h3>
+                <%= link_to projects_path do %>
+                    <h3 class="pull-right">Все проекты</h3>
+                <% end %>
+            </div>
+            <div class="space-sm"></div>
+            <div class="row portfolio-grid">
+							  <% Project.recent.where("id != ?", @project.id).accessible_by(current_ability).limit(3).each do |project| %>
+								    <%= render "projects/grid_div_item", :project => project %>
+								<% end %>
+            </div>
+        </div>
+    </section>
+		
+    <!--===/END    MAIN WRAP     ===-->
+		
+<% content_for :switcher do %>
+	<%= link_to 'Редактировать', edit_project_path(@project) %>
+	<%= link_to 'Файлы', [@project, Upload.new] %>
+	<%= link_to 'Назад', projects_path %>
+<% end %>

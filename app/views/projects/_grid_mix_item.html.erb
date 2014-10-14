@@ -1,0 +1,15 @@
+<% mix_by ||= :groups %>
+<li class="col-md-4 col-sm-6 mix <%= project.send(mix_by).map(&:permalink).join(" ") %>">
+		<%= link_to project, :title => "Ознакомьтесь" do %>
+			  <h4 class="visible-xs text-center"><%= project %></h4>
+        <div class="hover-content wow easePulse" data-wow-delay="0s">
+					  <%= image_tag project.logo_picture.src(:thumb), :class => "img-responsive", :alt => "Portfolio - application" %>
+            <div class="top-part hidden-xs">
+								<p style="padding: 10px;"><%= project.description %></p>
+            </div>
+            <div class="bottom-part hidden-xs">
+                <p style="padding: 10px;"><%= project %></p>
+            </div>
+        </div>
+    <% end %>
+</li>

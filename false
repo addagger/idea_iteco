@@ -1,0 +1,6 @@
+      invoke  active_record
+      create    db/migrate/20141012160640_create_categories_projects.rb
+      create    app/models/categories_project.rb
+      invoke    test_unit
+      create      test/models/categories_project_test.rb
+      create      test/fixtures/categories_projects.yml

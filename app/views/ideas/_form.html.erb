@@ -1,0 +1,56 @@
+<%= form_for(@idea, :html => {:class => "form-lg"}) do |f| %>
+  <%= render "shared/errors_explanation", :object => f.object %>
+
+  <div class="row">
+		<div class="col-md-6 col-sm-6">
+		  <div class="form-group">
+		    <%= f.label :title %>
+		    <%= f.text_field :title, :class => "form-control", :placeholder => "Краткое наименование" %>
+		  </div>
+		  <div class="form-group">
+		    <%= f.label :details %>&nbsp;&nbsp;<i class="fa fa-comment"></i>
+		    <%= f.text_area :details, :class => "form-control", :placeholder => "Раскройте суть Вашего предложения", :rows => 7 %>
+		  </div>
+		</div>
+		<div class="col-md-6 col-sm-6">
+		  <div class="form-group">
+				<%= f.label :person_name %>&nbsp;&nbsp;<i class="fa fa-user"></i>
+				<%= f.text_field :person_name, :class => "form-control", :placeholder => "Ф.И.О." %>
+		  </div>
+		  <div class="form-group">
+				<%= f.label :person_email %>&nbsp;&nbsp;<i class="fa fa-envelope"></i>
+				<%= f.text_field :person_email, :class => "form-control", :placeholder => "Введите адрес" %>
+		  </div>
+
+		  <div class="form-group">
+				<%= f.label :person_phone_number %>&nbsp;&nbsp;<i class="fa fa-phone"></i>
+				<%= f.select :person_phone_code, phone_country_codes_for_select, {:selected => f.object.person_phone_code||"RU"}, :class => 'selectpicker', :"data-live-search" => true, :'data-width' => "100%" %>
+				<%= f.text_field :person_phone_number, :class => "form-control", :placeholder => "Введите номер" %>
+		  </div>
+		</div>
+	</div>
+	<%= render "shared/tag_it", :f => f %>
+	
+  <% unless @category %>
+	  <div class="form-group">
+	    <%= f.label :category_ids %><br>
+	    <%= f.select :category_ids, categories_for_select, {}, :class => 'selectpicker', :multiple => true, :'data-width' => "100%" %>
+	  </div>
+	<% end %>
+	<% unless @group %>
+	  <div class="form-group">
+	    <%= f.label :group_ids %><br>
+	    <%= f.select :group_ids, groups_for_select, {}, :class => 'selectpicker', :multiple => true, :'data-width' => "100%" %>
+	  </div>
+	<% end %>
+	<% unless @project %>
+	  <div class="form-group">
+	    <%= f.label :project_ids %><br>
+	    <%= f.select :project_ids, projects_for_select, {}, :class => 'selectpicker', :multiple => true, :'data-width' => "100%" %>
+	  </div>
+	<% end %>
+	
+  <div class="actions form-group">
+    <%= f.submit :class => "btn btn-primary btn-xlg" %>
+  </div>
+<% end %>

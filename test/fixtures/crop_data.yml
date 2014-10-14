@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  picture_id: 1
+  crop_x: 1
+  crop_y: 1
+  crop_w: 
+  crop_h: 1
+
+two:
+  picture_id: 1
+  crop_x: 1
+  crop_y: 1
+  crop_w: 
+  crop_h: 1

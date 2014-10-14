@@ -1,0 +1,49 @@
+.flash {
+  position: fixed;
+	top: 70px;
+  z-index: 100;
+  width: 100%;
+}
+
+.form-lg {
+	margin: 30px 0px;
+}
+
+.field_with_errors {
+  display: inline;
+  label {
+    color: red;
+  }
+  input[type=text], input[type=password], input[type=number], select, textarea {
+    border: 1px solid red;
+  }
+}
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 999px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+
+.actions {
+	margin: 40px 0px;
+}
+
+.resource-actions {
+	a {
+		display:block;
+	}
+}

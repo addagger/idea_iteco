@@ -1,0 +1,5 @@
+$('a[resource="<%= @resource.record_id %>"][pic="<%= @picture.record_id %>"][picas="<%= @picas_name %>"]').find('.glyphicon-ok').remove();
+
+<% if @picas_name.in?(%w{logo}) %>
+  $('*[resource="<%= @resource.record_id %>"]').find('img.<%= @picas_name %>').attr('src', '<%= @resource.reload.send(@picas_name + "_picture").src.url(:thumb) %>');
+<% end %>

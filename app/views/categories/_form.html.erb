@@ -1,0 +1,30 @@
+<%= form_for(@category, :html => {:class => "form-lg"}) do |f| %>
+  <%= render "shared/errors_explanation", :object => f.object %>
+
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, :class => "form-control", :placeholder => "Название" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, :class => "form-control", :rows => 5 %>
+  </div>
+  <div class="form-group">
+    <%= f.label :icon %>
+    <%= f.text_field :icon, :class => "form-control", :style => "width:30%;" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :permalink %>
+    <%= f.text_field :permalink, :class => "form-control" %>
+  </div>
+	
+	<%= render 'shared/html_doc', :f => f %>  
+	
+  <div class="form-group">
+    <%= f.label :published %>
+    <%= f.check_box :published, :class => "bootstrap-switch" %> 
+  </div>
+  <div class="actions form-group">
+    <%= f.submit :class => "btn btn-primary" %>
+  </div>
+<% end %>

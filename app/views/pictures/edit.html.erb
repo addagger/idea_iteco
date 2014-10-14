@@ -1,0 +1,16 @@
+<% content_for :title do %>
+  <%= t('picture.edit.title', :title => "") %>
+  <small><%= @picture %></small>
+<% end %>
+
+<%= render 'form' %>
+
+<%= render "pictures/cropping_modal" %>
+
+<%= script do %>
+  $('#croppingModal').modal('show')
+<% end %>
+
+<% content_for :sidebar_menu do %>
+  <%= back_link([@resource, @picture]) %>
+<% end %>

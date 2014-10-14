@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @article.type %>
+</p>
+
+<p>
+  <strong>Resource type:</strong>
+  <%= @article.resource_type %>
+</p>
+
+<p>
+  <strong>Resource:</strong>
+  <%= @article.resource_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @article.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @article.content %>
+</p>
+
+<p>
+  <strong>Icon:</strong>
+  <%= @article.icon %>
+</p>
+
+<p>
+  <strong>Published:</strong>
+  <%= @article.published %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @article.position %>
+</p>
+
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Back', articles_path %>

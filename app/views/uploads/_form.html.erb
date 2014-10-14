@@ -1,0 +1,11 @@
+<%= form_for([@resource, @upload], :html => {:role => "form", :class => 'form-horizontal'}.merge(@upload.new_record? ? {:multipart => true} : {})) do |f| %>
+  <%= render "shared/errors_explanation", :object => f.object %>
+  
+  <%= render "uploads/fields", :f => f %>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-6">
+      <%= f.submit :class => "btn btn-default" %>
+    </div>
+  </div>
+<% end %>

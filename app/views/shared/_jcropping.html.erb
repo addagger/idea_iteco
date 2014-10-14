@@ -1,0 +1,74 @@
+<% resource = f.object %>
+
+<div class="form-group">
+  <%= f.label t('picture.cropping.title'), :class => 'control-label' %>
+  <%= image_tag resource.send(image).url(:croppable), :id => "cropbox" %>
+  <input id="aspect-ratio" type="checkbox" class="bootstrap-switch" data-size="small" data-on-text="<i class='glyphicon glyphicon-th-large'></i>" data-off-text="<i class='glyphicon glyphicon-retweet'></i>">
+
+  <button id="reset" type="button" class="btn btn-danger btn-xs">
+    <span class="glyphicon glyphicon-star"></span> <%= t('picture.cropping.reset') %>
+  </button>
+
+  <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+    <%= f.hidden_field attribute, :id => attribute %>
+  <% end %>
+</div>
+
+
+<%= script do %>
+  $(function () {
+    var cropBox = $('#cropbox'),
+      aspectCheckBox = $('#aspect-ratio'),
+      resetButton = $('#reset'),
+      cropX = $("#crop_x"),
+      cropY = $("#crop_y"),
+      cropW = $("#crop_w"),
+      cropH = $("#crop_h"),
+      updateCrop = function (coords) {
+        // var rx = 100/coords.w;
+        // var ry = 100/coords.h;
+        // $('#preview').css({
+        //   width: Math.round(rx * <%= resource.send("#{image}_geometry", :croppable).width %>) + 'px',
+        //   height: Math.round(ry * <%= resource.send("#{image}_geometry", :croppable).height %>) + 'px',
+        //   marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+        //   marginTop: '-' + Math.round(ry * coords.y) + 'px'
+        // });
+        var x_ratio = <%= resource.original_width %> / <%= resource.croppable_width %>;
+        var y_ratio = <%= resource.original_height %> / <%= resource.croppable_height %>;
+        cropX.val(Math.round(coords.x * x_ratio));
+        cropY.val(Math.round(coords.y * y_ratio));
+        cropW.val(Math.round(coords.w * x_ratio));
+        cropH.val(Math.round(coords.h * y_ratio));
+      }
+  
+    cropBox.Jcrop({
+      onChange: function (coords) {
+          updateCrop(coords);
+      },
+      onSelect: function (coords) {
+          updateCrop(coords);
+      },
+      setSelect: [<%= resource.crop_coords(:x) %>, <%= resource.crop_coords(:y) %>, <%= resource.crop_coords(:x2) %>, <%= resource.crop_coords(:y2) %>]
+    },function(){
+      //Store the API in the jcrop_api variable
+      $('.jcrop-keymgr').css({
+        top: 0,
+        opacity: 0
+      });
+      jcrop_api = this;
+      jcrop_api.setOptions({ keySupport: false });
+    });
+    
+    aspectCheckBox.on('switchChange.bootstrapSwitch', function(event, state) {
+      if (this.checked) {
+        jcrop_api.setOptions({ aspectRatio: 1 });
+      } else {
+        jcrop_api.setOptions({ aspectRatio: 0 });
+      }
+    });
+
+    resetButton.on('click', function () {
+      jcrop_api.setOptions({ setSelect: [<%= resource.crop_coords(:x) %>, <%= resource.crop_coords(:y) %>, <%= resource.crop_coords(:x2) %>, <%= resource.crop_coords(:y2) %>] })
+    });
+  });
+<% end %>

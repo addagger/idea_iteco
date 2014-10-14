@@ -1,0 +1,29 @@
+<% content_for :title do %>
+  <%= t('upload.show.title', :title => "") %>
+  <small><%= @upload %></small>
+  <% if can? :manage, @upload %>
+    <div class="btn-group">
+      <%= dropdown_manage_link([@resource, @upload]) %>
+      <%= counters_tip(@upload) %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= link_to @upload.url, :class => "btn btn-default pull-right" do %>
+  <span class="glyphicon glyphicon-download-alt"></span> <%= t('upload.download.button') %>
+<% end %>
+
+<dl class="show-resource">
+  <dt><%= Upload.human_attribute_name(:content_type) %></dt>
+  <dd class="lead"><%= @upload.content_type %></dd>
+  <dt><%= Upload.human_attribute_name(:file_size) %></dt>
+  <dd class="lead"><%= number_to_human_size(@upload.file_size) %> <span class="file-origin">(<%= @upload.i18n_origin %>)</span></dd>
+  <% if @upload.description.present? %>
+    <dt><%= Upload.human_attribute_name(:description) %></dt>
+    <dd class="lead"><%= @upload.description %></dd>
+  <% end %>
+</dl>
+
+<% content_for :sidebar_menu do %>
+  <%= back_link([@resource, Upload.new])%> 
+<% end %>

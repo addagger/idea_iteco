@@ -1,0 +1,29 @@
+<%= page_title_extended "Технологии без пробелов", :subtitle => "Листинг инновационных проектов Ай-Теко", :scroll_to => "projects" %>
+
+<h2 class="big-title text-center">По отраслям</h2>
+<%= render "categories/scope", :categories => accessible_categories %>
+
+<h2 class="big-title text-center">По ИТ-специализации</h2>
+<%= render "groups/scope", :groups => accessible_groups %>
+
+<!--===    MAIN WRAP     ===-->
+<section class="section-lg bg-grey ">
+    <div class="container">
+        <h2 class="big-title text-center">Актуальные проекты</h2>
+        <p class="big-subtitle text-center">Наиболее активные наши проекты</p>
+				<div class="space"></div>
+        <div class="row portfolio-grid">
+					  <% @projects.recent.accessible_by(current_ability).each do |project| %>					  
+		            <%= render "projects/grid_div_item", :project => project %>
+						<% end %>
+        </div>
+    </div>
+</section>
+<%= render "projects/scope", :projects => @projects, :title => "Все проекты", :subtitle => "Все наши проекты ваще" %>
+<!--===/END    MAIN WRAP     ===-->
+
+<% if can?(:manage, Project)%>
+    <% content_for :switcher do %>
+			<%= link_to 'Новый проект', new_project_path %>
+		<% end %>
+<% end %>

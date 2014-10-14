@@ -1,0 +1,70 @@
+<%= page_title @picture %>
+<div class="space"></div>
+<div class="container">
+	<% if @resource %>
+	  <% content_for :switcher do %>
+	    <h5><%= t('picture.meta.picas.title') %></h5>
+	    <ul class="nav nav-pills nav-stacked">
+	      <% @resource.attached_picture_reflections.each do |reflection| %>
+	        <% picas_name = reflection.class_name.underscore %>
+	        <li>
+	          <%= link_to "#", :picas => picas_name, :pic => @picture.record_id, :resource => @resource.record_id, :onClick => raw("picas_pill_toggle(this,'#{polymorphic_path([@resource, @picture, :picas])}', '#{picas_name}'); return false;") do %>
+	            <%= t("picture.as.#{picas_name}.use") %>
+	            <% if (@resource||current_store).attached_picture?(reflection.klass, @picture) %>
+	              <span class="glyphicon glyphicon-ok pull-right"></span>
+	            <% end %>
+	          <% end %>
+	        </li>
+	      <% end %>
+	    </ul>
+			<hr>
+	  <% end %>  
+	<% end %>
+
+	<button class="btn btn-primary-trn pull-right" data-toggle="modal" data-target="#croppingModal">
+	  <%= t('picture.edit.title') %>
+	</button>
+	<%= render "pictures/cropping_modal" %>
+
+	<dl class="show-resource">
+	  <% if @picture.description.present? %>
+	    <dt><%= Picture.human_attribute_name(:description) %></dt>
+	    <dd class="lead"><%= @picture.description %></dd>
+	  <% end %>
+	  <dt><%= Picture.human_attribute_name(:file_size) %></dt>
+	  <dd class="lead"><%= number_to_human_size(@picture.file_size) %> <span class="file-origin">(<%= @picture.i18n_origin %>)</span></dd>
+	</dl>
+
+	<div class="row">
+	  <div class="col-md-6">
+	    <div class="caption">
+	      <span class="label label-default"><%= t('picture.meta.current') %> <%= @picture.resolution(:current) %></span>
+	    </div>
+	    <%= link_to @picture.src.url(:current) do %>
+	      <%= image_tag @picture.src.url(:current), :class => "img-thumbnail", :style => "margin-bottom: 10px;" %>
+	    <% end %>
+	  </div>
+	  <div class="col-md-3">
+	    <div class="caption">
+	      <span class="label label-default"><%= t('picture.meta.thumbnail') %> <%= @picture.resolution(:thumb) %></span>
+	    </div>
+	    <%= link_to @picture.src.url(:thumb) do %>
+	      <%= image_tag @picture.src.url(:thumb), :class => "img-thumbnail", :style => "margin-bottom: 10px;" %>
+	    <% end %>
+	  </div>
+	  <div class="col-md-3">
+	    <div class="caption">
+	      <span class="label label-default"><%= t('picture.meta.original') %> <%= @picture.resolution(:original) %></span>
+	    </div>
+	    <%= link_to @picture.src.url(:original) do %>
+	      <%= image_tag @picture.src.url(:original_thumb), :class => "img-thumbnail", :style => "margin-bottom: 10px;" %>
+	    <% end %>
+	  </div>
+	</div>
+</div>
+
+<% if @resource %>
+  <% content_for :switcher do %>
+     <%= link_to "Назад", @resource %> 
+  <% end %>
+<% end %>

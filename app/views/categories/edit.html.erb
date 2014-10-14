@@ -1,0 +1,11 @@
+<%= page_title "Изменить категорию" %>
+<div class="container">
+	<h1>Заполните форму</h1>
+	
+  <%= render 'form' %>
+</div>
+
+<% content_for :switcher do %>
+	<%= link_to 'Показать', @category %>
+	<%= link_to 'Назад', categories_path %>
+<% end %>

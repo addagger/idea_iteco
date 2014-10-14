@@ -1,0 +1,2 @@
+class BgImage < Picas
+end

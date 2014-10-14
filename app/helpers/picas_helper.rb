@@ -1,0 +1,2 @@
+module PicasHelper
+end

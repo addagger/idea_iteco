@@ -1,0 +1,6 @@
+<%= f.fields_for defined?(param_name) ? param_name : :html_doc do |html_doc| %>
+  <div class="form-group">
+    <%= html_doc.label :content %>
+    <%= html_doc.text_area :content, :rows => 10, :class => 'form-control' %>
+  </div>
+<% end %>

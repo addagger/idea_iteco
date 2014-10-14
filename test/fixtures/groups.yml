@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  permalink: MyString
+  icon: MyString
+  published: false
+  position: 1
+
+two:
+  title: MyString
+  description: MyText
+  permalink: MyString
+  icon: MyString
+  published: false
+  position: 1

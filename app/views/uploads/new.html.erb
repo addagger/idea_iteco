@@ -1,0 +1,9 @@
+<% content_for :title do %>
+  <%= t('upload.new.title') %>
+<% end %>
+
+<%= render 'form' %>
+
+<% content_for :sidebar_menu do %>
+  <%= back_link([@resource, Upload.new]) %>
+<% end %>
