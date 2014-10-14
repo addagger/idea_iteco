@@ -2,9 +2,9 @@ class IdeasController < ApplicationController
   # before_action :set_idea, only: [:show, :edit, :update, :destroy]
   respond_to :html, :xml, :json
 
-  load_and_authorize_resource :category, :find_by => :permalink
-  load_and_authorize_resource :group, :find_by => :permalink
-  load_and_authorize_resource :project, :find_by => :permalink
+  # load_and_authorize_resource :category, :find_by => :permalink
+  # load_and_authorize_resource :group, :find_by => :permalink
+  # load_and_authorize_resource :project, :find_by => :permalink
   load_and_authorize_resource :through => [:category, :group, :project], :shallow => true, :find_by => :token
   before_filter :resource
   

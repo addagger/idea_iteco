@@ -31,6 +31,7 @@
 	</div>
 	<%= render "shared/tag_it", :f => f %>
 	
+	<% if can?(:manage, Idea) %>
   <% unless @category %>
 	  <div class="form-group">
 	    <%= f.label :category_ids %><br>
@@ -48,6 +49,7 @@
 	    <%= f.label :project_ids %><br>
 	    <%= f.select :project_ids, projects_for_select, {}, :class => 'selectpicker', :multiple => true, :'data-width' => "100%" %>
 	  </div>
+	<% end %>
 	<% end %>
 	
   <div class="actions form-group">

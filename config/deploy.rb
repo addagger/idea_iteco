@@ -2,7 +2,7 @@
 lock '3.2.1'
 
 set :application, 'idea'
-set :repo_url, 'git@github.com:addagger/idea.git'
+set :repo_url, 'git@github.com:addagger/idea_iteco.git'
 set :branch, 'master'
 
 # Default branch is :master
