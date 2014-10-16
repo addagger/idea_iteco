@@ -21,7 +21,7 @@ class Message < ActiveRecord::Base
   end
   
   def to_s
-    message
+    content
   end
   
   def person_name

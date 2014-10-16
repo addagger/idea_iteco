@@ -1,14 +1,13 @@
-<p id="notice"><%= notice %></p>
+<%= page_title "Сообщение", :subtitle => I18n.l(@message.created_at, :format => :long) %>
 
-<p>
-  <strong>Person:</strong>
-  <%= @message.person_id %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @message.content %>
-</p>
-
-<%= link_to 'Edit', edit_message_path(@message) %> |
-<%= link_to 'Back', messages_path %>
+<section class="section">
+    <div class="container">
+        <div class="space-sm"></div>
+				<%= @message.content %>
+    </div>
+</section>
+		
+<% content_for :switcher do %>
+	<%= link_to 'Редактировать', edit_message_path(@message) %>
+	<%= link_to 'Назад', messages_path %>
+<% end %>
