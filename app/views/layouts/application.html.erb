@@ -180,32 +180,33 @@
     <div class="sidebar-off hidden-xs sidebar">
         <div class="wrap">
             <div class="space-sm"></div>
-            <h4>Эккаунт</h4>
-                <ul class="info-list">
-							  <% if user_signed_in? && Rails.env.development? %>
-								  <li>
-										<i class="fa fa-user"></i>
-								    <%= link_to "Учетная запись", user_url(current_user), :class => "text-muted" %>
-								  </li>
-									<li>
-										<%= button_to destroy_user_session_path, :class => "btn btn-default btn-xs", :method => :delete do %>
-										  <i class="fa fa-sign-out"></i> Выйти
-										<% end %>
-									</li>
-								<% else %>
-								  <li>
-										<i class="fa fa-sign-in"></i>
-								     <%= link_to "Логин", new_user_session_path, :class => "text-muted" %>
-									</li>
-									<li class="divider"></li>
-									<li>
-										<i class="fa fa-pencil"></i>
-									  <%= link_to "Регистрация", new_user_registration_path, :class => "text-muted" %>
-									</li>
-							  <% end %>
-              </ul>
-	          <div class="space"></div>
-						
+						<% if Rails.env.development? %>
+							<h4>Эккаунт</h4>
+	                <ul class="info-list">
+									  <% if user_signed_in? %>
+										  <li>
+												<i class="fa fa-user"></i>
+										    <%= link_to "Учетная запись", user_url(current_user), :class => "text-muted" %>
+										  </li>
+											<li>
+												<%= button_to destroy_user_session_path, :class => "btn btn-default btn-xs", :method => :delete do %>
+												  <i class="fa fa-sign-out"></i> Выйти
+												<% end %>
+											</li>
+										<% else %>
+										  <li>
+												<i class="fa fa-sign-in"></i>
+										     <%= link_to "Логин", new_user_session_path, :class => "text-muted" %>
+											</li>
+											<li class="divider"></li>
+											<li>
+												<i class="fa fa-pencil"></i>
+											  <%= link_to "Регистрация", new_user_registration_path, :class => "text-muted" %>
+											</li>
+									  <% end %>
+	              </ul>
+		          <div class="space"></div>
+						<% end %>
             <h4>Языки</h4>
             <ul class="info-list sm-list lang">
                 <li class="active">
